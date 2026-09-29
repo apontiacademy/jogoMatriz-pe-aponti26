@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="2">
+  <title>Batalha Naval | Sala {{ codigo }}</title>
+  <style>
+    body { font-family: sans-serif; background: #0b1f33; color: #fff; text-align: center; }
+    .arena { display: flex; gap: 48px; justify-content: center; flex-wrap: wrap; }
+    table { border-collapse: collapse; margin: auto; }
+    td { width: 28px; height: 28px; border: 1px solid #2c4a66; }
+    .agua { background: #123a5c; }
+    .acerto { background: #d33; }
+    .erro { background: #6f8aa5; }
+    ul { list-style: none; padding: 0; }
+  </style>
+</head>
+<body>
+  <h1>Sala {{ codigo }}</h1>
+  {% if sala.vencedor %}<h2>Vitória do time {{ sala.vencedor }}!</h2>{% endif %}
+  <div class="arena">
+    {% for nome, tab in tabuleiros.items %}
+      <div>
+        <h3>Mar do time {{ nome }}</h3>
+        <table>
+          {% for linha in tab %}
+            <tr>
+              {% for casa in linha %}
+                <td class="{% if casa == 'X' %}acerto{% elif casa == 'O' %}erro{% else %}agua{% endif %}"></td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+    {% endfor %}
+  </div>
+  <ul>{% for linha in log %}<li>{{ linha }}</li>{% endfor %}</ul>
+</body>
+</html>
